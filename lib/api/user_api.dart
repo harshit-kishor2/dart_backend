@@ -1,12 +1,20 @@
-import 'package:shelf_router/shelf_router.dart';
-import 'package:shelf/shelf.dart';
+import 'package:backend_demo/backend_demo.dart';
 
 class UserApi {
-  Router get router {
-    final router = Router();
+  Db db;
+  UserApi(
+    this.db,
+  );
 
-    router.get('/', (Request request) {
-      return Response.ok("Hello User");
+  Router get router {
+    DbCollection user = db.collection('users');
+    final router = Router();
+    router.get('/', (Request request) async {
+      final users = [];
+      await user.find().forEach((element) {
+        users.add(element);
+      });
+      return Response.ok(jsonEncode(users));
     });
     return router;
   }

@@ -1,5 +1,4 @@
-import 'package:backend_demo/utils/utils.dart';
-import 'package:shelf/shelf.dart';
+import 'package:backend_demo/backend_demo.dart';
 
 Middleware handleAuth(String secret) {
   return (Handler innerHandler) {

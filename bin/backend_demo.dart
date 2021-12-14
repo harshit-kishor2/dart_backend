@@ -1,22 +1,32 @@
-import 'dart:async';
 import 'package:backend_demo/backend_demo.dart';
-import 'package:shelf/shelf.dart';
-import 'package:shelf/shelf_io.dart';
 
 Future<void> main(List<String> arguments) async {
-  // const secret = "This is secret key";
-  final port = 4000;
+  withHotreload(() => createServer());
+}
+
+Future<HttpServer> createServer() async {
+  final port = ENV.port;
   dynamic address = 'localhost';
 
-  //! Instantiate Home Controller
-  final home = HomeController();
+  //For connecting database
+  final mongoUrl = ENV.mongoUrl;
+  final db = await Db.create(mongoUrl);
+  await db.open();
+  if (db.isConnected) {
+    print('Connected to  database');
+  } else {
+    print('Not Connected to our database');
+  }
+
+  //! Instantiate API Handler
+  final api = ApiHandler(db: db);
 
   final handler = Pipeline()
       .addMiddleware(logRequests())
       .addMiddleware(handleCors())
       //.addMiddleware(handleAuth(secret))
-      .addHandler(home.handler);
+      .addHandler(api.handler);
 
-  await serve(handler, address, port);
   print('Server on: http://localhost:$port');
+  return serve(handler, address, int.parse(port));
 }
