@@ -1,4 +1,7 @@
+import 'dart:math';
+import 'package:crypto/crypto.dart';
 import 'package:backend_demo/backend_demo.dart';
+import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 
 String generateSalt([int length = 32]) {
   final rand = Random.secure();
@@ -38,8 +41,16 @@ dynamic verifyJwt(String token, String secret) {
     final jwt = JWT.verify(token, SecretKey(secret));
     return jwt;
   } on JWTExpiredError {
-    // TODO Handle error
+    //!  Handle error
   } on JWTError catch (err) {
-    // TODO Handle error
+    //!  Handle error
   }
+}
+
+Response response({required int code, required String message, data}) {
+  return Response(
+    code,
+    body: jsonEncode({'message': message, 'data': data}),
+    headers: {'Content-type': 'application/json'},
+  );
 }

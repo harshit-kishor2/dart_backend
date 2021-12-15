@@ -1,8 +1,8 @@
 import 'package:backend_demo/backend_demo.dart';
 
-class UserApi {
+class ProductApi {
   Db db;
-  UserApi(
+  ProductApi(
     this.db,
   );
 
