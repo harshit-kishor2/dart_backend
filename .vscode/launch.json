@@ -8,7 +8,7 @@
             "name": "backend_demo",
             "request": "launch",
             "type": "dart",
-            "program": "bin/backend_demo.dart"
+            "program": "bin/server.dart"
         }
     ]
 }
