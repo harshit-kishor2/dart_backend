@@ -1,6 +1,6 @@
 import 'package:backend_demo/backend_demo.dart';
 
-registerController(request, db) async {
+Future<Response> registerController(request, db) async {
   DbCollection userTable = db.collection('users');
   final userInfo = jsonDecode(await request.readAsString());
   final email = userInfo['email'];
@@ -48,7 +48,7 @@ registerController(request, db) async {
       data: savedUser);
 }
 
-loginController(request, db) async {
+Future<Response> loginController(request, db) async {
   DbCollection userTable = db.collection('users');
   final userInfo = jsonDecode(await request.readAsString());
   final email = userInfo['email'];

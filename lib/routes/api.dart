@@ -1,4 +1,4 @@
-import 'package:backend_demo/api/auth_api.dart';
+import 'package:backend_demo/routes/auth_api.dart';
 import 'package:backend_demo/backend_demo.dart';
 
 Future<Handler> handler() async {

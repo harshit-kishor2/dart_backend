@@ -5,7 +5,7 @@ export 'package:mongo_dart/mongo_dart.dart';
 export 'package:shelf_plus/shelf_plus.dart';
 
 // Export All Api files
-export 'api/api.dart';
+export 'routes/api.dart';
 
 //Export All util files
 export 'utils/index.dart';
